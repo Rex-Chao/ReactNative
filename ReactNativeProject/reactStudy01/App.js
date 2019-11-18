@@ -1,25 +1,53 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
-export default function App() {
-  const me = {
-    name: 'Rex',
-    age: 28,
-    interest: ['Programming', 'Workout'],
-    property: {
-      appearance: 'Just so so',
-      character: 'Mild'
-    },
-    func: function() {
-      alert('This is an alert!');
-    }
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+    this.baseState = this.state;
+  }
+  // initialState() {
+  //   return {
+  //     count: 0
+  //   };
+  // }
+  // state = this.initialState();
+
+  changeCount = () => {
+    this.setState(prevState => ({ count: prevState.count + 1 }));
   };
-  return (
-    <View style={styles.container}>
-      <Text>Hello world RN!</Text>
-      <People {...me} />
-    </View>
-  );
+
+  resetState = () => {
+    this.setState(this.baseState);
+    // this.setState(this.initialState);
+  };
+
+  render() {
+    const me = {
+      name: 'Rex',
+      age: 28,
+      interest: ['Programming', 'Workout'],
+      property: {
+        appearance: 'Normal',
+        character: 'Mild'
+      },
+      func: function() {
+        alert('This is an alert!');
+      }
+    };
+    return (
+      <View style={styles.container}>
+        <Text>Hello world RN!</Text>
+        <Text>Count:{this.state.count}</Text>
+        <Button title="changeCount" onPress={this.changeCount} />
+        <Button title="resetState" onPress={this.resetState} />
+        <People {...me} />
+      </View>
+    );
+  }
 }
 const People = props => {
   return (
